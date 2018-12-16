@@ -63,7 +63,7 @@
 
     <TextView
         android:id="@+id/profileWelcomeTextView"
-        android:layout_width="237dp"
+        android:layout_width="0dp"
         android:layout_height="31dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

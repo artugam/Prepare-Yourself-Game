@@ -8,26 +8,23 @@ import com.example.artur.prepareyourself.R;
 import com.example.artur.prepareyourself.Skills.Weapons.OneHandSword;
 
 
-public class Warrrior extends PersonBase {
+public class Warrior extends PersonBase {
 
     private final static String DEFAULT_NAME = "Warrior";
     private final static int DEFAULT_HP = 150;
     private final static int DEFAULT_MANA = 50;
     private final static int DEFAULT_ENERGY = 4;
 
-    public Warrrior(String imie, int hp, int mana, int energy) {
+    public Warrior(String imie, int hp, int mana, int energy) {
         super(imie, hp, mana, energy);
-//        assignSkills();
     }
 
-    public Warrrior(String imie) {
+    public Warrior(String imie) {
         super(imie, DEFAULT_HP, DEFAULT_MANA, DEFAULT_ENERGY);
-//        assignSkills();
     }
 
-    public Warrrior() {
+    public Warrior() {
         super(DEFAULT_NAME, DEFAULT_HP, DEFAULT_MANA, DEFAULT_ENERGY);
-//        assignSkills();
     }
 
     @Override
@@ -45,7 +42,7 @@ public class Warrrior extends PersonBase {
 
     @Override
     public String toString() {
-        return "Warrrior{" +
+        return "Warrior{" +
                 "imie='" + imie + '\'' +
                 ", hp=" + hp +
                 ", mana=" + mana +

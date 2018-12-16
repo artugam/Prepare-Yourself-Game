@@ -23,12 +23,17 @@ public class FireBall extends SkillBase {
         return R.raw.spells_fireball;
     }
 
+    public int getEffectImage()
+    {
+        return 0;
+    }
 
     @Override
     public void action(Context appContext) {
 
         MediaPlayer spellMusic = MediaPlayer.create(appContext, getMusic());
         spellMusic.start();
+
     }
 
     @Override

@@ -21,7 +21,6 @@ public class Wizard extends PersonBase {
 
     public Wizard(String imie) {
         super(imie, DEFAULT_HP, DEFAULT_MANA, DEFAULT_ENERGY);
-
     }
 
     public Wizard() {
@@ -35,8 +34,7 @@ public class Wizard extends PersonBase {
 
     public Drawable getThemeImage(Resources resources)
     {
-        Drawable drawable = resources.getDrawable( R.drawable.wizard, null);
-        return drawable;
+        return resources.getDrawable( R.drawable.wizard, null);
     }
 
 

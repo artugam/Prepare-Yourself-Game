@@ -8,30 +8,22 @@
     android:theme="@style/NoActionBar"
     tools:context=".Arena">
 
-    <TextView
-        android:id="@+id/viewUp"
-        android:layout_width="411dp"
-        android:layout_height="311dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/viewUpHp"
-        android:layout_width="163dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="240dp"
         android:background="@android:color/holo_red_dark"
+        android:elevation="24dp"
         android:text="HP"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageUp"
         app:layout_constraintEnd_toEndOf="@+id/barrier"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.47000003" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -59,8 +51,9 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewUp" />
+        app:layout_constraintTop_toBottomOf="@+id/imageUp" />
 
     <Button
         android:id="@+id/viewDownHp"
@@ -84,9 +77,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/barrier"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/viewDownHp"
-        app:layout_constraintTop_toTopOf="@+id/viewUp"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="@+id/viewDownHp" />
 
     <Button
         android:id="@+id/viewUpMana"
@@ -97,9 +88,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/barrier"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/viewDownHp"
-        app:layout_constraintTop_toTopOf="@+id/viewUp"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintStart_toStartOf="@+id/viewDownHp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -118,9 +107,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUp"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/viewUpEnergy"
@@ -132,13 +119,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewUp"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/arenaActionSelectSpinner"
-        android:layout_width="357dp"
+        android:layout_width="179dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -163,9 +148,19 @@
         android:text="Attack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.801"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.74" />
+        app:layout_constraintVertical_bias="0.6" />
+
+    <ImageView
+        android:id="@+id/imageUp"
+        android:layout_width="0dp"
+        android:layout_height="297dp"
+        app:layout_constraintBottom_toTopOf="@+id/viewDown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

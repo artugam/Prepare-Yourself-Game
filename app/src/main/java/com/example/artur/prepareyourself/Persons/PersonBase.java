@@ -2,7 +2,6 @@ package com.example.artur.prepareyourself.Persons;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import com.example.artur.prepareyourself.R;
 import com.example.artur.prepareyourself.Skills.SkillBase;
@@ -20,12 +19,9 @@ public abstract class PersonBase implements Serializable {
 
     private List<SkillBase> skills = new ArrayList<SkillBase>();
 
-
     public void addSkill(SkillBase skill)
     {
-        Log.d("addSKill", skill.toString());
         skills.add(skill);
-
     }
 
     public PersonBase(String imie, int hp, int mana, int energy) {
@@ -34,6 +30,7 @@ public abstract class PersonBase implements Serializable {
         this.mana = mana;
         this.energy = energy;
 
+        this.assignSkills();
     }
 
     public String getImie() {

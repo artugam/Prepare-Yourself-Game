@@ -15,7 +15,7 @@ public class BitmapGenerator {
     public ImageView img;
     public static AppCompatActivity app;
 
-    BitmapGenerator(Bitmap bitMap1, Bitmap bitmap2, ImageView img)
+    public BitmapGenerator(Bitmap bitmap1, Bitmap bitmap2, ImageView img)
     {
         this.bitmap1 = bitmap1;
         this.bitmap2 = bitmap2;
@@ -24,6 +24,7 @@ public class BitmapGenerator {
 
     public void run(AppCompatActivity application)
     {
+
         app = application;
         final long changeTime = 20;
 
@@ -42,7 +43,6 @@ public class BitmapGenerator {
 
                                 amount -= 10;
                                 amount = amount < 0 ? 0 : amount;
-//                                TextView img = new TextView();
                                 Bitmap mergedImg = overlayBitmapToCenter(bitmap1, bitmap2, amount);
                                 img.setImageBitmap(mergedImg);
 

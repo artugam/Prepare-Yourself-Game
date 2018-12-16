@@ -1,6 +1,8 @@
 package com.example.artur.prepareyourself.Skills;
 
-public abstract class SkillBase implements SkillInterface {
+import java.io.Serializable;
+
+public abstract class SkillBase implements SkillInterface, Serializable {
 
     protected int damage;
     protected int energy;
@@ -42,9 +44,10 @@ public abstract class SkillBase implements SkillInterface {
         return name;
     }
 
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    public int getEffectImage()
+    {
+        return 0;
+    }
 
     @Override
     public String toString() {

@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.artur.prepareyourself.Helpers.Validators.Base;
 import com.example.artur.prepareyourself.Persons.PersonBase;
-import com.example.artur.prepareyourself.Persons.PlayerClasses.Warrrior;
+import com.example.artur.prepareyourself.Persons.PlayerClasses.Warrior;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Wizard;
 
 public class ChooseClass extends AppCompatActivity {
@@ -19,6 +21,8 @@ public class ChooseClass extends AppCompatActivity {
     private Spinner playerSelect;
 
     private PersonBase player;
+
+    private String playerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,14 @@ public class ChooseClass extends AppCompatActivity {
         selectPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                if(!validateInputs())
+                {
+                    return;
+                }
+
+
                 Intent changer = new Intent(getApplicationContext(), Profile.class);
 
                 String playerClass = playerSelect.getSelectedItem().toString();
@@ -44,18 +56,31 @@ public class ChooseClass extends AppCompatActivity {
         });
     }
 
+    private boolean validateInputs()
+    {
+        EditText playerNameField = findViewById(R.id.playerNameInputText);
+        playerName = playerNameField.getText().toString();
+
+        if(Base.isEmptyString(playerName))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private PersonBase getPlayerClass(String playerClass)
     {
         switch (playerClass)
         {
             case "Warrior":
-                return new Warrrior();
+                return new Warrior(playerName);
             case "Wizard":
-                return new Wizard();
+                return new Wizard(playerName);
 //            case "Scoundriel":
-//                return new Scoundriel();
+//                return new Scoundriel(playerName);
         }
-        return new Warrrior();
+        return new Warrior();
     }
 
 
