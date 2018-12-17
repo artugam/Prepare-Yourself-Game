@@ -13,9 +13,15 @@ import java.util.List;
 public abstract class PersonBase implements Serializable {
 
     protected String imie;
+
     protected int hp;
+    protected int maxHp;
+
     protected int mana;
+    protected int maxMana;
+
     protected int energy;
+    protected int maxEnergy;
 
     private List<SkillBase> skills = new ArrayList<SkillBase>();
 
@@ -26,11 +32,35 @@ public abstract class PersonBase implements Serializable {
 
     public PersonBase(String imie, int hp, int mana, int energy) {
         this.imie = imie;
-        this.hp = hp;
-        this.mana = mana;
-        this.energy = energy;
+        this.hp   = this.maxHp = hp;
+        this.mana = this.maxMana = mana;
+        this.energy = this.maxEnergy =  energy;
 
         this.assignSkills();
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
+    }
+
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+
+    public void setMaxEnergy(int maxEnergy) {
+        this.maxEnergy = maxEnergy;
     }
 
     public String getImie() {
@@ -69,10 +99,8 @@ public abstract class PersonBase implements Serializable {
         return skills;
     }
 
-    public void assignSkills()
-    {
+    public void assignSkills(){}
 
-    }
 
     public void setSkills(List<SkillBase> skills) {
         this.skills = skills;
@@ -83,6 +111,7 @@ public abstract class PersonBase implements Serializable {
         Drawable drawable = resources.getDrawable( R.drawable.main, null);
         return drawable;
     }
+
 
     @Override
     public String toString() {

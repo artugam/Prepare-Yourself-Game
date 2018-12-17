@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -102,18 +103,29 @@ public class Arena extends AppCompatActivity {
     private void setMeStats()
     {
 
-        Button hp = findViewById(R.id.viewDownHp);
-        Button energy = findViewById(R.id.viewDownEnergy);
-        Button mana = findViewById(R.id.viewDownMana);
+        ProgressBar playerHp = findViewById(R.id.viewDownHp);
+        TextView playerHpView = findViewById(R.id.playerHpTextView);
+        playerHp.setMax(me.getMaxHp());
+        playerHp.setProgress(me.getHp());
+        playerHpView.setText(me.getHp() + "");
 
-        hp.setText(me.getHp() + "");
-        energy.setText(me.getEnergy() + "");
-        mana.setText(me.getMana() + "");
+
+        ProgressBar playerEp = findViewById(R.id.viewDownEnergy);
+        TextView playerEpView = findViewById(R.id.playerEpTextView);
+        playerEp.setMax(me.getMaxEnergy());
+        playerEp.setProgress(me.getEnergy());
+        playerEpView.setText(me.getEnergy() + "");
+
+
+        ProgressBar playerMp = findViewById(R.id.viewDownMana);
+        TextView playerMpView = findViewById(R.id.playerMpTextView);
+        playerMp.setMax(me.getMaxMana());
+        playerMp.setProgress(me.getMana());
+        playerMpView.setText(me.getMana() + "");
+
 
         TextView viewDown = findViewById(R.id.viewDown);
         viewDown.setBackground((me.getThemeImage(getResources())));
-//        viewDown.setAlpha(new Float(0.5));
-
 
         actionsSelect = findViewById(R.id.arenaActionSelectSpinner);
         List<String> list = new ArrayList<>();
@@ -133,13 +145,12 @@ public class Arena extends AppCompatActivity {
 
     private void setEnemyStats()
     {
-        Button upViewHp = findViewById(R.id.viewUpHp);
-        Button upViewEnergy = findViewById(R.id.viewUpEnergy);
-        Button upViewMana =  findViewById(R.id.viewUpMana);
-
-        upViewHp.setText(this.enemy.getHp() + "");
-        upViewEnergy.setText(this.enemy.getEnergy() + "");
-        upViewMana.setText(this.enemy.getMana() + "");
+        ProgressBar upViewHp = findViewById(R.id.viewUpHp);
+        upViewHp.setMax(100);
+        upViewHp.setProgress(this.enemy.getHp());
+//
+        TextView hpNumber = findViewById(R.id.enemyHp);
+        hpNumber.setText(this.enemy.getHp() + " " );
 
         ImageView viewUp = findViewById(R.id.imageUp);
         viewUp.setBackground((enemy.getThemeImage(getResources())));
