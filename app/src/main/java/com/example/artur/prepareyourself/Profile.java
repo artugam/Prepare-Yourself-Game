@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.artur.prepareyourself.Persons.PersonBase;
@@ -55,14 +56,24 @@ public class Profile extends AppCompatActivity {
 
     private Profile setResources()
     {
-        Button HP = findViewById(R.id.profileHpButton);
-        HP.setText(me.getHp() + "");
+        ProgressBar playerHp = findViewById(R.id.profileHpButton);
+        TextView playerHpView = findViewById(R.id.profileHpTextView);
+        playerHp.setMax(me.getMaxHp());
+        playerHp.setProgress(me.getHp());
+        playerHpView.setText(me.getHp() + "");
 
-        Button EP = findViewById(R.id.profileEpButton);
-        EP.setText(me.getEnergy() + "");
+        ProgressBar playerEp = findViewById(R.id.profileEpButton);
+        TextView playerEpView = findViewById(R.id.profileEpTextView);
+        playerEp.setMax(me.getMaxEnergy());
+        playerEp.setProgress(me.getEnergy());
+        playerEpView.setText(me.getEnergy() + "");
 
-        Button PM = findViewById(R.id.profilePmButton);
-        PM.setText(me.getMana() + "");
+
+        ProgressBar playerMp = findViewById(R.id.profilePmButton);
+        TextView playerMpView = findViewById(R.id.profileMpTextView);
+        playerMp.setMax(me.getMaxMana());
+        playerMp.setProgress(me.getMana());
+        playerMpView.setText(me.getMana() + "");
 
         return this;
     }

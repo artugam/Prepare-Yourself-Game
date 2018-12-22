@@ -1,7 +1,9 @@
 package com.example.artur.prepareyourself.Skills.Weapons;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 
+import com.example.artur.prepareyourself.R;
 import com.example.artur.prepareyourself.Skills.SkillBase;
 
 public class OneHandSword extends SkillBase {
@@ -15,9 +17,22 @@ public class OneHandSword extends SkillBase {
         super(name, damage * DAMAGE_MULTIPLER, energy, mana);
     }
 
+
+    public int getMusic()
+    {
+        return R.raw.weapon_sword_attack;
+    }
+
+    public int getEffectImage()
+    {
+        return 0;
+    }
+
     @Override
     public void action(Context appContext) {
-//        return this.getDamage();
+
+        MediaPlayer spellMusic = MediaPlayer.create(appContext, getMusic());
+        spellMusic.start();
     }
 
     @Override

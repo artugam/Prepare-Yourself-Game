@@ -23,44 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.775" />
 
-    <Button
-        android:id="@+id/profilePmButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:background="@color/design_default_color_primary_dark"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/profileEpButton"
-        android:layout_width="121dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_dark"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/profileHpButton"
-        android:layout_width="151dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <TextView
         android:id="@+id/profileWelcomeTextView"
         android:layout_width="0dp"
@@ -70,7 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="serif"
-        android:text="Welcome"
+        android:text="Welcome your name"
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
@@ -80,5 +42,95 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.052" />
+
+    <ProgressBar
+        android:id="@+id/profileHpButton"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="145dp"
+        android:layout_height="32dp"
+        android:max="5"
+        android:progress="2"
+        android:progressBackgroundTint="@android:color/darker_gray"
+        android:progressTint="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ProgressBar
+        android:id="@+id/profileEpButton"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="124dp"
+        android:layout_height="32dp"
+        android:max="5"
+        android:progress="2"
+        android:progressBackgroundTint="@android:color/darker_gray"
+        android:progressTint="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/profileHpButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ProgressBar
+        android:id="@+id/profilePmButton"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:max="5"
+        android:progress="1"
+        android:progressBackgroundTint="@android:color/darker_gray"
+        android:progressTint="@color/design_default_color_primary_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profileEpButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/profileHpTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Hp"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/profileHpButton"
+        app:layout_constraintEnd_toStartOf="@+id/profileEpButton"
+        app:layout_constraintStart_toStartOf="@+id/profileHpButton"
+        app:layout_constraintTop_toTopOf="@+id/profileHpButton"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/profileEpTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Ep"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/profileEpButton"
+        app:layout_constraintEnd_toStartOf="@+id/profilePmButton"
+        app:layout_constraintStart_toEndOf="@+id/profileHpTextView"
+        app:layout_constraintTop_toTopOf="@+id/profileEpButton" />
+
+    <TextView
+        android:id="@+id/profileMpTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Mp"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/profilePmButton"
+        app:layout_constraintEnd_toEndOf="@+id/profilePmButton"
+        app:layout_constraintStart_toEndOf="@+id/profileEpTextView"
+        app:layout_constraintTop_toTopOf="@+id/profilePmButton" />
 
 </android.support.constraint.ConstraintLayout>
