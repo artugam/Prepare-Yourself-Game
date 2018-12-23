@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.artur.prepareyourself.Helpers.Validators.Base;
 import com.example.artur.prepareyourself.Persons.PersonBase;
+import com.example.artur.prepareyourself.Persons.PlayerClasses.Archer;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Warrior;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Wizard;
 
@@ -77,10 +78,10 @@ public class ChooseClass extends AppCompatActivity {
                 return new Warrior(playerName);
             case "Wizard":
                 return new Wizard(playerName);
-//            case "Scoundriel":
-//                return new Scoundriel(playerName);
+            case "Archer":
+                return new Archer(playerName);
         }
-        return new Warrior();
+        return new Warrior(playerName);
     }
 
 

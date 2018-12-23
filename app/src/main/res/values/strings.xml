@@ -3,7 +3,7 @@
     <string-array name="players">
         <item>Warrior</item>
         <item>Wizard</item>
-        <item>Scoundriel</item>
+        <item>Archer</item>
     </string-array>
 
     <string name="app_name">PrepareYourself</string>
@@ -24,5 +24,10 @@
 
     <string name="your_name">Your name</string>
     <string name="confirm">Confirm</string>
+
+
+    <string name="arena_your_turn">Your Turn</string>
+    <string name="arena_enemy_turn">Enemy Turn</string>
+    <string name="arena_battle_begins">Battle Begins!</string>
 
 </resources>

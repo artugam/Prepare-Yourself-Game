@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ public class Arena extends AppCompatActivity {
     private Spinner actionsSelect;
     private Button actionButton;
 
+    public static TextView desc;
     public static PersonBase me;
     public static PersonBase enemy;
 
@@ -37,118 +39,140 @@ public class Arena extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arena);
 
+        Intent intent = getIntent();
+
+        me = (PersonBase) intent.getSerializableExtra("me");
         enemy = new Wizard();
 
-        Intent intent = getIntent();
-        me = (PersonBase) intent.getSerializableExtra("me");
+        setMainFightDescription(R.string.arena_battle_begins);
 
         actionButton = findViewById(R.id.arenaActionButton);
+        actionButton.setClickable(false);
+
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            public void run() {
+                setMainFightDescription(R.string.arena_battle_begins);
+
+            }
+        }, 1000);
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                setMainFightDescription(R.string.arena_your_turn);
+                actionButton.setClickable(true);
+            }
+        }, 3000);
 
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 currentView = v;
-
-
-                int selectedActionPos = actionsSelect.getSelectedItemPosition();
-                SkillBase currentSkill = me.getSkills().get(selectedActionPos);
-                currentSkill.action(getApplicationContext());
-
-
-                Toast.makeText(v.getContext(),
-                        me.getImie() + ": " + currentSkill.getName(),
-                        Toast.LENGTH_LONG).show();
-
-                ImageView upView = findViewById(R.id.imageUp);
-
-//                Bitmap bit1 = BitmapFactory.decodeResource(getResources(), R.drawable.wizard);
-//                Bitmap bit2= BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
-//
-//                setBitMaps(bit1, bit2, upView);
-
-
-//                BitmapGenerator bitmapGen = new BitmapGenerator(bit1, bit2, upView);
-//                bitmapGen.run();
-
-                enemy.setHp(enemy.getHp() - currentSkill.getDamage());
-                me.setEnergy(me.getEnergy() - currentSkill.getEnergy());
-                me.setMana(me.getMana() - currentSkill.getMana());
-
-                setStats();
+                myTurn();
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         enemyTurn();
+                        nextTurn();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                setMainFightDescription(R.string.arena_your_turn);
+                                actionButton.setClickable(true);
+                            }
+                        }, 5000);
+
                     }
-                }, 5000);
-
-
-
-
-
-//                enemy.setHp(enemy.getHp() - currentSkill.getDamage());
-//                me.setEnergy(me.getEnergy() - currentSkill.getEnergy());
-//                me.setMana(me.getMana() - currentSkill.getMana());
-//
-//
-//                SkillBase randomSkill = enemy.getSkills().get(ThreadLocalRandom.current().nextInt(enemy.getSkills().size()));
-//
-//
-//                Toast.makeText(v.getContext(),
-//                        enemy.getImie() + ": " + currentSkill.getName(),
-//                        Toast.LENGTH_LONG).show();
-//
-//
-////                Handler handler = new Handler();
-////                handler.postDelayed(new Runnable() {
-////                    public void run() {
-////                        // Actions to do after 10 seconds
-////                    }
-////                }, 3000);
-//
-//                randomSkill.action(getApplicationContext());
-//
-//
-//
-//                me.setHp(me.getHp() - randomSkill.getDamage());
-//                enemy.setMana(enemy.getMana() - randomSkill.getMana());
-//                enemy.setEnergy(enemy.getEnergy() - randomSkill.getEnergy());
-//
-//                setStats();
-
-
-            }
+                }, 3000);
+           }
         });
+
 
         this.setStats();
     }
 
-    private void enemyTurn()
+    public void myTurn()
     {
+        actionButton.setClickable(false);
 
-
-
-        SkillBase randomSkill = enemy.getSkills().get(ThreadLocalRandom.current().nextInt(enemy.getSkills().size()));
-
+        int selectedActionPos = actionsSelect.getSelectedItemPosition();
+        SkillBase currentSkill = me.getSkills().get(selectedActionPos);
+        currentSkill.action(getApplicationContext());
 
         Toast.makeText(currentView.getContext(),
-                enemy.getImie() + ": " + randomSkill.getName(),
+                me.getImie() + ": " + currentSkill.getName(),
                 Toast.LENGTH_LONG).show();
 
-        randomSkill.action(getApplicationContext());
-
-
-
-        me.setHp(me.getHp() - randomSkill.getDamage());
-        enemy.setMana(enemy.getMana() - randomSkill.getMana());
-        enemy.setEnergy(enemy.getEnergy() - randomSkill.getEnergy());
+//                bitmapGen();
+        enemy.setHp(enemy.getHp() - currentSkill.getDamage());
+        me.setEnergy(me.getEnergy() - currentSkill.getEnergy());
+        me.setMana(me.getMana() - currentSkill.getMana());
 
         setStats();
+    }
+
+
+
+    private void setMainFightDescription (int textId)
+    {
+        String text = getString(textId);
+        desc = findViewById(R.id.mainFightDescriptionTextView);
+        desc.setText(text);
+        desc.setVisibility(View.VISIBLE);
+        desc.startAnimation(AnimationUtils.loadAnimation(Arena.this, android.R.anim.slide_in_left));
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                desc.startAnimation(AnimationUtils.loadAnimation(Arena.this, android.R.anim.slide_out_right));
+                desc.setVisibility(View.INVISIBLE);
+            }
+        }, 1000);
+    }
+
+    private void nextTurn()
+    {
+        me.nextTurn();
+        enemy.nextTurn();
+    }
+
+    private void enemyTurn()
+    {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                setMainFightDescription(R.string.arena_enemy_turn);
+            }
+        }, 1000);
+
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            public void run() {
+                SkillBase randomSkill = enemy.getSkills().get(ThreadLocalRandom.current().nextInt(enemy.getSkills().size()));
+
+                Toast.makeText(currentView.getContext(),
+                        enemy.getImie() + ": " + randomSkill.getName(),
+                        Toast.LENGTH_LONG).show();
+
+                randomSkill.action(getApplicationContext());
+
+
+
+                me.setHp(me.getHp() - randomSkill.getDamage());
+                enemy.setMana(enemy.getMana() - randomSkill.getMana());
+                enemy.setEnergy(enemy.getEnergy() - randomSkill.getEnergy());
+                setStats();
+            }
+        }, 3000);
+
     }
 
     private void setStats()
@@ -203,9 +227,9 @@ public class Arena extends AppCompatActivity {
     private void setEnemyStats()
     {
         ProgressBar upViewHp = findViewById(R.id.viewUpHp);
-        upViewHp.setMax(100);
+        upViewHp.setMax(this.enemy.getMaxHp());
         upViewHp.setProgress(this.enemy.getHp());
-//
+
         TextView hpNumber = findViewById(R.id.enemyHp);
         hpNumber.setText(this.enemy.getHp() + " " );
 
@@ -237,6 +261,19 @@ public class Arena extends AppCompatActivity {
 
 
 
+    public void bitmapGen()
+    {
+        //                ImageView upView = findViewById(R.id.imageUp);
+//
+////                Bitmap bit1 = BitmapFactory.decodeResource(getResources(), R.drawable.wizard);
+////                Bitmap bit2= BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
+////
+////                setBitMaps(bit1, bit2, upView);
+//
+//
+////                BitmapGenerator bitmapGen = new BitmapGenerator(bit1, bit2, upView);
+////                bitmapGen.run();
+    }
 
 
 

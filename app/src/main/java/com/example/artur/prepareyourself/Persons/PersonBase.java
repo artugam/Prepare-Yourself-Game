@@ -12,10 +12,15 @@ import java.util.List;
 
 public abstract class PersonBase implements Serializable {
 
+    protected int ENERGY_RECOVER = 2;
+    protected int MANA_RECOVER = 0;
+    protected int HP_RECOVER = 0;
+
     protected String imie;
 
     protected int hp;
     protected int maxHp;
+
 
     protected int mana;
     protected int maxMana;
@@ -87,6 +92,21 @@ public abstract class PersonBase implements Serializable {
         this.mana = mana;
     }
 
+    public void addEnergy(int energy)
+    {
+        this.energy += energy;
+    }
+
+    public void addHp(int hp)
+    {
+        this.hp += hp;
+    }
+
+    public void addMana(int mana)
+    {
+        this.mana += mana;
+    }
+
     public int getEnergy() {
         return energy;
     }
@@ -101,6 +121,12 @@ public abstract class PersonBase implements Serializable {
 
     public void assignSkills(){}
 
+    public void nextTurn()
+    {
+        this.addEnergy(this.ENERGY_RECOVER);
+        this.addHp(this.HP_RECOVER);
+        this.addMana(this.MANA_RECOVER);
+    }
 
     public void setSkills(List<SkillBase> skills) {
         this.skills = skills;
