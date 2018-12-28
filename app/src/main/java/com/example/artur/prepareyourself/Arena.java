@@ -45,7 +45,7 @@ public class Arena extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        me = (PersonBase) intent.getSerializableExtra("me");
+        me = (PersonBase) intent.getSerializableExtra("player");
         enemy = new Wizard();
 
         setMainFightDescription(R.string.arena_battle_begins);
@@ -114,7 +114,6 @@ public class Arena extends AppCompatActivity {
 //                bitmapGen();
         enemy.setHp(enemy.getHp() - currentSkill.getDamage());
         me.setEnergy(me.getEnergy() - currentSkill.getEnergy());
-        me.setMana(me.getMana() - currentSkill.getMana());
 
         setStats();
     }
@@ -167,7 +166,6 @@ public class Arena extends AppCompatActivity {
 
 
                 me.setHp(me.getHp() - randomSkill.getDamage());
-                enemy.setMana(enemy.getMana() - randomSkill.getMana());
                 enemy.setEnergy(enemy.getEnergy() - randomSkill.getEnergy());
                 setStats();
             }
@@ -196,14 +194,6 @@ public class Arena extends AppCompatActivity {
         playerEp.setMax(me.getMaxEnergy());
         playerEp.setProgress(me.getEnergy());
         playerEpView.setText(me.getEnergy() + "");
-
-
-        ProgressBar playerMp = findViewById(R.id.viewDownMana);
-        TextView playerMpView = findViewById(R.id.playerMpTextView);
-        playerMp.setMax(me.getMaxMana());
-        playerMp.setProgress(me.getMana());
-        playerMpView.setText(me.getMana() + "");
-
 
         TextView viewDown = findViewById(R.id.viewDown);
         viewDown.setBackground((me.getThemeImage(getResources())));

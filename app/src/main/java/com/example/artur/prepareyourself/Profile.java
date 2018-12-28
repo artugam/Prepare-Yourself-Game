@@ -12,7 +12,7 @@ import com.example.artur.prepareyourself.Persons.PersonBase;
 
 public class Profile extends AppCompatActivity {
 
-    public static PersonBase me;
+    public static PersonBase player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +21,9 @@ public class Profile extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        me = (PersonBase) intent.getSerializableExtra("me");
+        player = (PersonBase) intent.getSerializableExtra("player");
 
         this.setDetails();
-
 
         Button fightButton = findViewById(R.id.fightButton);
         fightButton.setOnClickListener(new View.OnClickListener() {
@@ -33,7 +32,7 @@ public class Profile extends AppCompatActivity {
 
                 Intent changer = new Intent(getApplicationContext(), Arena.class);
 
-                changer.putExtra("me", me);
+                changer.putExtra("player", player);
                 startActivity(changer);
             }
         });
@@ -48,9 +47,9 @@ public class Profile extends AppCompatActivity {
     private Profile setBackgroundImageAndName()
     {
         TextView welcomeText = findViewById(R.id.profileWelcomeTextView);
-        welcomeText.setText(welcomeText.getText() + " " + me.getImie());
+        welcomeText.setText(welcomeText.getText() + " " + player.getImie());
 
-        getWindow().setBackgroundDrawable(me.getThemeImage(getResources()));
+        getWindow().setBackgroundDrawable(player.getThemeImage(getResources()));
         return this;
     }
 
@@ -58,22 +57,15 @@ public class Profile extends AppCompatActivity {
     {
         ProgressBar playerHp = findViewById(R.id.profileHpButton);
         TextView playerHpView = findViewById(R.id.profileHpTextView);
-        playerHp.setMax(me.getMaxHp());
-        playerHp.setProgress(me.getHp());
-        playerHpView.setText(me.getHp() + "");
+        playerHp.setMax(player.getMaxHp());
+        playerHp.setProgress(player.getHp());
+        playerHpView.setText(player.getHp() + "");
 
         ProgressBar playerEp = findViewById(R.id.profileEpButton);
         TextView playerEpView = findViewById(R.id.profileEpTextView);
-        playerEp.setMax(me.getMaxEnergy());
-        playerEp.setProgress(me.getEnergy());
-        playerEpView.setText(me.getEnergy() + "");
-
-
-        ProgressBar playerMp = findViewById(R.id.profilePmButton);
-        TextView playerMpView = findViewById(R.id.profileMpTextView);
-        playerMp.setMax(me.getMaxMana());
-        playerMp.setProgress(me.getMana());
-        playerMpView.setText(me.getMana() + "");
+        playerEp.setMax(player.getMaxEnergy());
+        playerEp.setProgress(player.getEnergy());
+        playerEpView.setText(player.getEnergy() + "");
 
         return this;
     }

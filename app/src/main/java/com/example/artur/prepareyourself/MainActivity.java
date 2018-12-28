@@ -30,27 +30,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    public static TextView desc;
-
-    public void toRemoveAnimation()
-    {
-//        desc = findViewById(R.id.animationTest);
-//        desc.setVisibility(View.VISIBLE);
-//        desc.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_in_left));
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//                desc.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_out_right));
-//                desc.setVisibility(View.INVISIBLE);
-//            }
-//        }, 1000);
-
-
-
-    }
-
-
     void setMusic()
     {
         MediaPlayer sing = MediaPlayer.create(getApplicationContext(), R.raw.song);

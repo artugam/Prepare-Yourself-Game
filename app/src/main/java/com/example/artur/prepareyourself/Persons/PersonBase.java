@@ -13,17 +13,12 @@ import java.util.List;
 public abstract class PersonBase implements Serializable {
 
     protected int ENERGY_RECOVER = 2;
-    protected int MANA_RECOVER = 0;
     protected int HP_RECOVER = 0;
 
     protected String imie;
-
     protected int hp;
     protected int maxHp;
 
-
-    protected int mana;
-    protected int maxMana;
 
     protected int energy;
     protected int maxEnergy;
@@ -35,10 +30,9 @@ public abstract class PersonBase implements Serializable {
         skills.add(skill);
     }
 
-    public PersonBase(String imie, int hp, int mana, int energy) {
+    public PersonBase(String imie, int hp, int energy) {
         this.imie = imie;
         this.hp   = this.maxHp = hp;
-        this.mana = this.maxMana = mana;
         this.energy = this.maxEnergy =  energy;
 
         this.assignSkills();
@@ -50,14 +44,6 @@ public abstract class PersonBase implements Serializable {
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
-    }
-
-    public int getMaxMana() {
-        return maxMana;
-    }
-
-    public void setMaxMana(int maxMana) {
-        this.maxMana = maxMana;
     }
 
     public int getMaxEnergy() {
@@ -84,14 +70,6 @@ public abstract class PersonBase implements Serializable {
         this.hp = hp;
     }
 
-    public int getMana() {
-        return mana;
-    }
-
-    public void setMana(int mana) {
-        this.mana = mana;
-    }
-
     public void addEnergy(int energy)
     {
         this.energy += energy;
@@ -100,11 +78,6 @@ public abstract class PersonBase implements Serializable {
     public void addHp(int hp)
     {
         this.hp += hp;
-    }
-
-    public void addMana(int mana)
-    {
-        this.mana += mana;
     }
 
     public int getEnergy() {
@@ -125,7 +98,6 @@ public abstract class PersonBase implements Serializable {
     {
         this.addEnergy(this.ENERGY_RECOVER);
         this.addHp(this.HP_RECOVER);
-        this.addMana(this.MANA_RECOVER);
     }
 
     public void setSkills(List<SkillBase> skills) {
@@ -144,7 +116,6 @@ public abstract class PersonBase implements Serializable {
         return "PersonBase{" +
                 "imie='" + imie + '\'' +
                 ", hp=" + hp +
-                ", mana=" + mana +
                 ", energy=" + energy +
                 ", skills=" + skills +
                 '}';

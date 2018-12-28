@@ -12,9 +12,9 @@ public class Bow extends SkillBase {
 
     protected static String name = "Bow";
 
-    public Bow(int damage, int energy, int mana) {
+    public Bow(int damage, int energy) {
 
-        super(name, damage * DAMAGE_MULTIPLER, energy, mana);
+        super(name, damage * DAMAGE_MULTIPLER, energy);
     }
 
 

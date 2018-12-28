@@ -38,20 +38,16 @@ public class ChooseClass extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 if(!validateInputs())
                 {
                     return;
                 }
 
-
                 Intent changer = new Intent(getApplicationContext(), Profile.class);
-
                 String playerClass = playerSelect.getSelectedItem().toString();
-
                 PersonBase player = getPlayerClass(playerClass);
 
-                changer.putExtra("me", player);
+                changer.putExtra("player", player);
                 startActivity(changer);
             }
         });

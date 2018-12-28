@@ -12,9 +12,9 @@ public class FireBall extends SkillBase {
 
     protected static String name = "FireBall";
 
-    public FireBall(int damage, int energy, int mana) {
+    public FireBall(int damage, int energy) {
 
-        super(name, damage * DAMAGE_MULTIPLER, energy, mana);
+        super(name, damage * DAMAGE_MULTIPLER, energy);
     }
 
 
@@ -41,7 +41,6 @@ public class FireBall extends SkillBase {
         return "FireBall{" +
                 "damage=" + damage +
                 ", energy=" + energy +
-                ", mana=" + mana +
                 ", name='" + name + '\'' +
                 '}';
     }
