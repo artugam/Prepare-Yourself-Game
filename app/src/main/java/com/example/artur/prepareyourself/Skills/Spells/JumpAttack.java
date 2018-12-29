@@ -6,21 +6,20 @@ import android.media.MediaPlayer;
 import com.example.artur.prepareyourself.R;
 import com.example.artur.prepareyourself.Skills.SkillBase;
 
-public class FireBall extends SkillBase {
+public class JumpAttack extends SkillBase {
 
-    private final static int DAMAGE_MULTIPLER = 2;
+    private final static int DAMAGE_MULTIPLER = 3;
 
-    protected static String name = "FireBall";
+    protected static String name = "JumpAttack";
 
-    public FireBall(int damage, int energy) {
+    public JumpAttack(int damage, int energy) {
 
         super(name, damage * DAMAGE_MULTIPLER, energy);
     }
 
-
     public int getMusic()
     {
-        return R.raw.spells_fireball;
+        return R.raw.spells_jump_attack;
     }
 
     public int getEffectImage()
@@ -38,7 +37,7 @@ public class FireBall extends SkillBase {
 
     @Override
     public String toString() {
-        return "FireBall{" +
+        return "JumpAttack{" +
                 "damage=" + damage +
                 ", energy=" + energy +
                 ", name='" + name + '\'' +

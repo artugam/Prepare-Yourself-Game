@@ -34,21 +34,14 @@
         app:layout_constraintTop_toTopOf="@+id/view"
         app:layout_constraintVertical_bias="0.559" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="286dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view"
-        app:layout_constraintVertical_bias="0.178"
-        app:srcCompat="@drawable/fireball" />
+    <!--android:shadowColor="#000000"-->
+    <!--android:shadowDx="1.5"-->
+    <!--android:shadowDy="1.3"-->
+    <!--android:shadowRadius="1.6"-->
+    <!--android:textAllCaps="true"-->
+    <!--android:textColor="@color/colorPrimaryDark"-->
+    <!--android:text="Your Turn"-->
+
+
 
 </android.support.constraint.ConstraintLayout>

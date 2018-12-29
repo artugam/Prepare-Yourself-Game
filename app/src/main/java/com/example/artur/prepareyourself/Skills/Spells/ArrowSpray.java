@@ -6,21 +6,20 @@ import android.media.MediaPlayer;
 import com.example.artur.prepareyourself.R;
 import com.example.artur.prepareyourself.Skills.SkillBase;
 
-public class FireBall extends SkillBase {
+public class ArrowSpray extends SkillBase {
 
-    private final static int DAMAGE_MULTIPLER = 2;
+    private final static int DAMAGE_MULTIPLER = 3;
 
-    protected static String name = "FireBall";
+    protected static String name = "ArrowSpray";
 
-    public FireBall(int damage, int energy) {
+    public ArrowSpray(int damage, int energy) {
 
         super(name, damage * DAMAGE_MULTIPLER, energy);
     }
 
-
     public int getMusic()
     {
-        return R.raw.spells_fireball;
+        return R.raw.spells_arrow_spray;
     }
 
     public int getEffectImage()

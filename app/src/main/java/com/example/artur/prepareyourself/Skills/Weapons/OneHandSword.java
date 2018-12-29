@@ -12,9 +12,9 @@ public class OneHandSword extends SkillBase {
 
     protected static String name = "One Hand Sword";
 
-    public OneHandSword(int damage, int energy, int mana) {
+    public OneHandSword(int damage, int energy) {
 
-        super(name, damage * DAMAGE_MULTIPLER, energy, mana);
+        super(name, damage * DAMAGE_MULTIPLER, energy);
     }
 
 

@@ -37,6 +37,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:allowUndo="false"
         android:background="@color/colorGrayWithOpacity"
         android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +48,7 @@
         app:layout_constraintVertical_bias="0.249" />
 
     <android.support.design.widget.TextInputLayout
-        android:layout_width="395dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -60,6 +61,7 @@
         app:hintEnabled="false"
         app:layout_constraintBottom_toTopOf="@+id/playerSelectSpinner"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.61"

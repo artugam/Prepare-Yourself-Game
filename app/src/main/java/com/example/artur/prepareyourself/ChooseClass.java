@@ -3,20 +3,20 @@ package com.example.artur.prepareyourself;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.artur.prepareyourself.Helpers.Toast;
 import com.example.artur.prepareyourself.Helpers.Validators.Base;
 import com.example.artur.prepareyourself.Persons.PersonBase;
+import com.example.artur.prepareyourself.Persons.PlayerClasses.Archer;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Warrior;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Wizard;
 
-public class ChooseClass extends AppCompatActivity {
+public class ChooseClass extends BaseActivity {
 
     private Spinner playerSelect;
 
@@ -29,6 +29,7 @@ public class ChooseClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_class);
 
+
         addOnSpinnerSelectListener();
 
         final Button selectPlayer = findViewById(R.id.submitPlayerSelectButton);
@@ -37,23 +38,24 @@ public class ChooseClass extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                if(!validateInputs())
+            if(!validateInputs())
                 {
                     return;
                 }
 
-
                 Intent changer = new Intent(getApplicationContext(), Profile.class);
-
                 String playerClass = playerSelect.getSelectedItem().toString();
-
                 PersonBase player = getPlayerClass(playerClass);
 
-                changer.putExtra("me", player);
+                changer.putExtra("player", player);
+                changer.putExtra("level", 1);
                 startActivity(changer);
+
+                finish();
             }
         });
+
+
     }
 
     private boolean validateInputs()
@@ -63,6 +65,7 @@ public class ChooseClass extends AppCompatActivity {
 
         if(Base.isEmptyString(playerName))
         {
+            Toast.showMessage(getApplicationContext(), "Please provide your name");
             return false;
         }
 
@@ -77,10 +80,10 @@ public class ChooseClass extends AppCompatActivity {
                 return new Warrior(playerName);
             case "Wizard":
                 return new Wizard(playerName);
-//            case "Scoundriel":
-//                return new Scoundriel(playerName);
+            case "Archer":
+                return new Archer(playerName);
         }
-        return new Warrior();
+        return new Warrior(playerName);
     }
 
 
@@ -92,16 +95,14 @@ public class ChooseClass extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(parent.getContext(),
-                    "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                    Toast.LENGTH_LONG).show();
+//                Toast.makeText(parent.getContext(),
+//                    "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+//                    Toast.LENGTH_LONG).show();
 
                 String selectedClass =  parent.getItemAtPosition(position).toString();
+                int classImageId = getResources().getIdentifier(selectedClass.toLowerCase(), "drawable", "com.example.artur.prepareyourself");
 
-
-                int idTest = getResources().getIdentifier(selectedClass.toLowerCase(), "drawable", "com.example.artur.prepareyourself");
-
-                Drawable drawable = getResources().getDrawable(idTest, null);
+                Drawable drawable = getResources().getDrawable(classImageId, null);
                 getWindow().setBackgroundDrawable(drawable);
             }
 
@@ -111,4 +112,6 @@ public class ChooseClass extends AppCompatActivity {
             }
         });
     }
+
+
 }

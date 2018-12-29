@@ -2,7 +2,7 @@ package com.example.artur.prepareyourself;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import com.example.artur.prepareyourself.Persons.PersonBase;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends BaseActivity {
 
-    public static PersonBase me;
+    protected PersonBase player;
+    protected int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +22,12 @@ public class Profile extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        me = (PersonBase) intent.getSerializableExtra("me");
+        player = (PersonBase) intent.getSerializableExtra("player");
+        level = (int) intent.getSerializableExtra("level");
+
+        Log.d("level", level + "");
 
         this.setDetails();
-
 
         Button fightButton = findViewById(R.id.fightButton);
         fightButton.setOnClickListener(new View.OnClickListener() {
@@ -33,8 +36,11 @@ public class Profile extends AppCompatActivity {
 
                 Intent changer = new Intent(getApplicationContext(), Arena.class);
 
-                changer.putExtra("me", me);
+                changer.putExtra("player", player);
+                changer.putExtra("level", level);
+
                 startActivity(changer);
+                finish();
             }
         });
 
@@ -48,9 +54,12 @@ public class Profile extends AppCompatActivity {
     private Profile setBackgroundImageAndName()
     {
         TextView welcomeText = findViewById(R.id.profileWelcomeTextView);
-        welcomeText.setText(welcomeText.getText() + " " + me.getImie());
+        welcomeText.setText(welcomeText.getText() + " " + player.getImie());
 
-        getWindow().setBackgroundDrawable(me.getThemeImage(getResources()));
+        TextView profileLevel = findViewById(R.id.profileNextLevelTextView);
+        profileLevel.setText(profileLevel.getText() + " " + this.level);
+
+        getWindow().setBackgroundDrawable(player.getThemeImage(getResources()));
         return this;
     }
 
@@ -58,22 +67,16 @@ public class Profile extends AppCompatActivity {
     {
         ProgressBar playerHp = findViewById(R.id.profileHpButton);
         TextView playerHpView = findViewById(R.id.profileHpTextView);
-        playerHp.setMax(me.getMaxHp());
-        playerHp.setProgress(me.getHp());
-        playerHpView.setText(me.getHp() + "");
+        playerHp.setMax(player.getMaxHp());
+        playerHp.setProgress(player.getHp());
+        playerHpView.setText(player.getHp() + "");
 
+        player.setEnergy(player.getENERGY_RECOVER());
         ProgressBar playerEp = findViewById(R.id.profileEpButton);
         TextView playerEpView = findViewById(R.id.profileEpTextView);
-        playerEp.setMax(me.getMaxEnergy());
-        playerEp.setProgress(me.getEnergy());
-        playerEpView.setText(me.getEnergy() + "");
-
-
-        ProgressBar playerMp = findViewById(R.id.profilePmButton);
-        TextView playerMpView = findViewById(R.id.profileMpTextView);
-        playerMp.setMax(me.getMaxMana());
-        playerMp.setProgress(me.getMana());
-        playerMpView.setText(me.getMana() + "");
+        playerEp.setMax(player.getMaxEnergy());
+        playerEp.setProgress(player.getEnergy());
+        playerEpView.setText(player.getEnergy() + "");
 
         return this;
     }

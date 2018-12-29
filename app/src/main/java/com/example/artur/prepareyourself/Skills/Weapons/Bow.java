@@ -1,4 +1,4 @@
-package com.example.artur.prepareyourself.Skills.Spells;
+package com.example.artur.prepareyourself.Skills.Weapons;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -6,13 +6,13 @@ import android.media.MediaPlayer;
 import com.example.artur.prepareyourself.R;
 import com.example.artur.prepareyourself.Skills.SkillBase;
 
-public class FireBall extends SkillBase {
+public class Bow extends SkillBase {
 
-    private final static int DAMAGE_MULTIPLER = 2;
+    private final static int DAMAGE_MULTIPLER = 1;
 
-    protected static String name = "FireBall";
+    protected static String name = "Bow";
 
-    public FireBall(int damage, int energy) {
+    public Bow(int damage, int energy) {
 
         super(name, damage * DAMAGE_MULTIPLER, energy);
     }
@@ -20,7 +20,7 @@ public class FireBall extends SkillBase {
 
     public int getMusic()
     {
-        return R.raw.spells_fireball;
+        return R.raw.weapon_bow_attack;
     }
 
     public int getEffectImage()
@@ -33,12 +33,11 @@ public class FireBall extends SkillBase {
 
         MediaPlayer spellMusic = MediaPlayer.create(appContext, getMusic());
         spellMusic.start();
-
     }
 
     @Override
     public String toString() {
-        return "FireBall{" +
+        return "OneHandSword{" +
                 "damage=" + damage +
                 ", energy=" + energy +
                 ", name='" + name + '\'' +
