@@ -31,13 +31,13 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/enemyHp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.441" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_end="411dp" />
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier"
@@ -67,18 +67,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageUp" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewToCenterImages"
+        app:layout_constraintVertical_bias="0.90999997" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="21dp" />
 
     <Spinner
         android:id="@+id/arenaActionSelectSpinner"
-        android:layout_width="179dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -87,14 +88,14 @@
         android:background="@color/colorGrayWithOpacity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/arenaActionButton"
-        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemyHp"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintTop_toTopOf="@+id/viewDown"
+        app:layout_constraintVertical_bias="0.19" />
 
     <Button
         android:id="@+id/arenaActionButton"
-        style="@style/Widget.AppCompat.Button"
+        style="@android:style/Widget.Material.Light.Button.Borderless.Small"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -102,20 +103,22 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="false"
-        android:text="Attack"
+        android:elevation="0dp"
+        android:text="@string/arena_attack"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemyHp"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintTop_toTopOf="@+id/viewDown"
+        app:layout_constraintVertical_bias="0.19" />
 
     <ImageView
         android:id="@+id/imageUp"
         android:layout_width="0dp"
-        android:layout_height="348dp"
-        app:layout_constraintBottom_toTopOf="@+id/viewDown"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/textViewToCenterImages"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +144,7 @@
     <TextView
         android:id="@+id/enemyHp"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="31dp"
         android:text="HP"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -156,14 +159,15 @@
     <ProgressBar
         android:id="@+id/viewDownHp"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="205dp"
+        android:layout_width="0dp"
         android:layout_height="32dp"
+        android:elevation="0dp"
         android:max="5"
         android:progress="2"
         android:progressBackgroundTint="@android:color/darker_gray"
         android:progressTint="@android:color/holo_red_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewToCenterPlayerResources"
+        app:layout_constraintEnd_toStartOf="@+id/textViewToCenterPlayerResources"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -180,8 +184,8 @@
         android:progressTint="@android:color/holo_orange_dark"
         app:layout_constraintBottom_toBottomOf="@+id/viewDown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/viewDownHp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewToCenterPlayerResources"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -195,9 +199,11 @@
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/viewDownHp"
-        app:layout_constraintEnd_toStartOf="@+id/viewDownEnergy"
+        app:layout_constraintEnd_toEndOf="@+id/viewDownHp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/viewDownHp"
-        app:layout_constraintTop_toTopOf="@+id/viewDownHp" />
+        app:layout_constraintTop_toTopOf="@+id/viewDownHp"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/playerEpTextView"
@@ -210,11 +216,13 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/viewDownEnergy"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/playerHpTextView"
-        app:layout_constraintTop_toTopOf="@+id/viewDownEnergy" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewToCenterPlayerResources"
+        app:layout_constraintTop_toTopOf="@+id/viewDownEnergy"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/playerEndTurn"
+        android:id="@+id/arenaPlayerEndTurn"
         style="@android:style/Widget.Holo.Light.Button.Toggle"
         android:layout_width="86dp"
         android:layout_height="43dp"
@@ -230,14 +238,30 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemyHp"
-        app:layout_constraintVertical_bias="0.853" />
+        app:layout_constraintVertical_bias="0.81" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="561dp"
-        tools:layout_editor_absoluteY="478dp" />
+        android:id="@+id/textViewToCenterPlayerResources"
+        android:layout_width="0.01dp"
+        android:layout_height="29dp"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/viewDown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enemyHp"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textViewToCenterImages"
+        android:layout_width="0dp"
+        android:layout_height="0.001dp"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

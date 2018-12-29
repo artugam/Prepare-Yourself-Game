@@ -2,6 +2,7 @@ package com.example.artur.prepareyourself;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.artur.prepareyourself.Helpers.Validators.Base;
 import com.example.artur.prepareyourself.Persons.PersonBase;
@@ -22,6 +22,7 @@ public class ChooseClass extends AppCompatActivity {
     private Spinner playerSelect;
 
     private PersonBase player;
+    protected MediaPlayer sing;
 
     private String playerName;
 
@@ -30,6 +31,7 @@ public class ChooseClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_class);
 
+        setMusic();
         addOnSpinnerSelectListener();
 
         final Button selectPlayer = findViewById(R.id.submitPlayerSelectButton);
@@ -51,6 +53,22 @@ public class ChooseClass extends AppCompatActivity {
                 startActivity(changer);
             }
         });
+
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        sing.pause();
+    }
+
+    void setMusic()
+    {
+        sing = MediaPlayer.create(getApplicationContext(), R.raw.song);
+        sing.start();
     }
 
     private boolean validateInputs()
@@ -89,16 +107,14 @@ public class ChooseClass extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(parent.getContext(),
-                    "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                    Toast.LENGTH_LONG).show();
+//                Toast.makeText(parent.getContext(),
+//                    "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+//                    Toast.LENGTH_LONG).show();
 
                 String selectedClass =  parent.getItemAtPosition(position).toString();
+                int classImageId = getResources().getIdentifier(selectedClass.toLowerCase(), "drawable", "com.example.artur.prepareyourself");
 
-
-                int idTest = getResources().getIdentifier(selectedClass.toLowerCase(), "drawable", "com.example.artur.prepareyourself");
-
-                Drawable drawable = getResources().getDrawable(idTest, null);
+                Drawable drawable = getResources().getDrawable(classImageId, null);
                 getWindow().setBackgroundDrawable(drawable);
             }
 
@@ -108,4 +124,6 @@ public class ChooseClass extends AppCompatActivity {
             }
         });
     }
+
+
 }

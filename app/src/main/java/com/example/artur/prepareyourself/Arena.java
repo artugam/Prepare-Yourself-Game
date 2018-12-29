@@ -1,10 +1,6 @@
 package com.example.artur.prepareyourself;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.artur.prepareyourself.Persons.PersonBase;
+import com.example.artur.prepareyourself.Persons.PlayerClasses.Archer;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Wizard;
 import com.example.artur.prepareyourself.Skills.SkillBase;
 
@@ -30,12 +27,14 @@ public class Arena extends AppCompatActivity {
 
     private Spinner actionsSelect;
     private Button actionButton;
+    private Button endTurn;
 
     public static TextView desc;
-    public static PersonBase me;
+    public static PersonBase player;
     public static PersonBase enemy;
-
     public static View currentView;
+
+    public int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +42,36 @@ public class Arena extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arena);
 
+        this.level = 1;
         Intent intent = getIntent();
+        player = (PersonBase) intent.getSerializableExtra("player");
+        enemy = this.getEnemy();
 
-        me = (PersonBase) intent.getSerializableExtra("player");
-        enemy = new Wizard();
+        this.setStats();
 
-        setMainFightDescription(R.string.arena_battle_begins);
-
+        endTurn = findViewById(R.id.arenaPlayerEndTurn);
         actionButton = findViewById(R.id.arenaActionButton);
-        actionButton.setClickable(false);
 
+        this.battleStarts();
+
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentView = v;
+                myTurnStart();
+            }
+        });
+
+        endTurn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enemyTurnStart();
+            }
+        });
+    }
+
+    private void battleStarts()
+    {
         Handler handler1 = new Handler();
         handler1.postDelayed(new Runnable() {
             public void run() {
@@ -61,61 +80,58 @@ public class Arena extends AppCompatActivity {
             }
         }, 1000);
 
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 setMainFightDescription(R.string.arena_your_turn);
-                actionButton.setClickable(true);
             }
         }, 3000);
-
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentView = v;
-                myTurn();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        enemyTurn();
-                        nextTurn();
-
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                setMainFightDescription(R.string.arena_your_turn);
-                                actionButton.setClickable(true);
-                            }
-                        }, 5000);
-
-                    }
-                }, 3000);
-           }
-        });
-
-
-        this.setStats();
     }
 
-    public void myTurn()
+    private void enemyTurnStart()
     {
         actionButton.setClickable(false);
+        endTurn.setVisibility(View.INVISIBLE);
 
+        setMainFightDescription(R.string.arena_enemy_turn);
+
+        Handler handler1 = new Handler();
+        handler1.postDelayed(enemyTurnRunnable, 1000);
+    }
+
+    private void enemyTurnPostActions()
+    {
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            public void run() {
+                nextTurn();
+                setMainFightDescription(R.string.arena_your_turn);
+                actionButton.setClickable(true);
+                endTurn.setVisibility(View.VISIBLE);
+            }
+        }, 2000);
+    }
+
+    public void myTurnStart()
+    {
         int selectedActionPos = actionsSelect.getSelectedItemPosition();
-        SkillBase currentSkill = me.getSkills().get(selectedActionPos);
+        SkillBase currentSkill = player.getSkills().get(selectedActionPos);
         currentSkill.action(getApplicationContext());
 
         Toast.makeText(currentView.getContext(),
-                me.getImie() + ": " + currentSkill.getName(),
+                player.getImie() + ": " + currentSkill.getName(),
                 Toast.LENGTH_LONG).show();
 
 //                bitmapGen();
         enemy.setHp(enemy.getHp() - currentSkill.getDamage());
-        me.setEnergy(me.getEnergy() - currentSkill.getEnergy());
+        player.setEnergy(player.getEnergy() - currentSkill.getEnergy());
 
         setStats();
+
+        if(player.getEnergy() < 1)
+        {
+            enemyTurnStart();
+        }
     }
 
 
@@ -139,38 +155,49 @@ public class Arena extends AppCompatActivity {
 
     private void nextTurn()
     {
-        me.nextTurn();
+        player.nextTurn();
         enemy.nextTurn();
+        setStats();
     }
 
-    private void enemyTurn()
+    private Handler enemyHandler = new Handler();
+    private Runnable enemyTurnRunnable = new Runnable() {
+        @Override
+        public void run() {
+
+            SkillBase randomSkill = enemy.getSkills().get(ThreadLocalRandom.current().nextInt(enemy.getSkills().size()));
+
+            if(randomSkill.getEnergy() > enemy.getEnergy())
+            {
+                enemyHandler.removeCallbacks(this);
+                enemyTurnPostActions();
+                return;
+            }
+
+            Toast.makeText(currentView.getContext(),
+                    enemy.getImie() + ": " + randomSkill.getName(),
+                    Toast.LENGTH_LONG).show();
+
+            randomSkill.action(getApplicationContext());
+
+            player.setHp(player.getHp() - randomSkill.getDamage());
+            enemy.setEnergy(enemy.getEnergy() - randomSkill.getEnergy());
+
+            setStats();
+
+            enemyHandler.postDelayed(this, 2000);
+        }
+    };
+
+
+    public PersonBase getEnemy()
     {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                setMainFightDescription(R.string.arena_enemy_turn);
-            }
-        }, 1000);
-
-        Handler handler1 = new Handler();
-        handler1.postDelayed(new Runnable() {
-            public void run() {
-                SkillBase randomSkill = enemy.getSkills().get(ThreadLocalRandom.current().nextInt(enemy.getSkills().size()));
-
-                Toast.makeText(currentView.getContext(),
-                        enemy.getImie() + ": " + randomSkill.getName(),
-                        Toast.LENGTH_LONG).show();
-
-                randomSkill.action(getApplicationContext());
-
-
-
-                me.setHp(me.getHp() - randomSkill.getDamage());
-                enemy.setEnergy(enemy.getEnergy() - randomSkill.getEnergy());
-                setStats();
-            }
-        }, 3000);
-
+        switch (this.level)
+        {
+            case 1:
+                return new Wizard();
+        }
+        return new Archer();
     }
 
     private void setStats()
@@ -184,26 +211,30 @@ public class Arena extends AppCompatActivity {
 
         ProgressBar playerHp = findViewById(R.id.viewDownHp);
         TextView playerHpView = findViewById(R.id.playerHpTextView);
-        playerHp.setMax(me.getMaxHp());
-        playerHp.setProgress(me.getHp());
-        playerHpView.setText(me.getHp() + "");
+        playerHp.setMax(player.getMaxHp());
+        playerHp.setProgress(player.getHp());
+        playerHpView.setText(player.getHp() + "");
 
 
         ProgressBar playerEp = findViewById(R.id.viewDownEnergy);
         TextView playerEpView = findViewById(R.id.playerEpTextView);
-        playerEp.setMax(me.getMaxEnergy());
-        playerEp.setProgress(me.getEnergy());
-        playerEpView.setText(me.getEnergy() + "");
+        playerEp.setMax(player.getMaxEnergy());
+        playerEp.setProgress(player.getEnergy());
+        playerEpView.setText(player.getEnergy() + "");
 
         TextView viewDown = findViewById(R.id.viewDown);
-        viewDown.setBackground((me.getThemeImage(getResources())));
+        viewDown.setBackground((player.getThemeImage(getResources())));
 
         actionsSelect = findViewById(R.id.arenaActionSelectSpinner);
         List<String> list = new ArrayList<>();
 
-        for(int i =0; i < me.getSkills().size(); i++)
+        String skillName;
+        SkillBase skill;
+        for(int i =0; i < player.getSkills().size(); i++)
         {
-            list.add(me.getSkills().get(i).getName());
+            skill = player.getSkills().get(i);
+            skillName = skill.getName() + " EP: " + skill.getEnergy();
+            list.add(skillName);
         }
 
 
@@ -226,111 +257,4 @@ public class Arena extends AppCompatActivity {
         ImageView viewUp = findViewById(R.id.imageUp);
         viewUp.setBackground((enemy.getThemeImage(getResources())));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void bitmapGen()
-    {
-        //                ImageView upView = findViewById(R.id.imageUp);
-//
-////                Bitmap bit1 = BitmapFactory.decodeResource(getResources(), R.drawable.wizard);
-////                Bitmap bit2= BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
-////
-////                setBitMaps(bit1, bit2, upView);
-//
-//
-////                BitmapGenerator bitmapGen = new BitmapGenerator(bit1, bit2, upView);
-////                bitmapGen.run();
-    }
-
-
-
-    public static int amount = 255;
-    public Bitmap bitmap1;
-    public Bitmap bitmap2;
-    public ImageView img;
-    public static AppCompatActivity app;
-
-    public void setBitMaps(Bitmap bitmap1, Bitmap bitmap2, ImageView img)
-    {
-        this.bitmap1 = bitmap1;
-        this.bitmap2 = bitmap2;
-        this.img = img;
-        this.run();
-    }
-
-    public void run()
-    {
-        final long changeTime = 20;
-
-        final Thread thread = new Thread(){
-            @Override
-            public void run() {
-
-                while (!isInterrupted())
-                {
-                    try{
-                        Thread.sleep(changeTime);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                amount -= 10;
-                                amount = amount < 0 ? 0 : amount;
-                                Bitmap mergedImg = overlayBitmapToCenter(bitmap1, bitmap2, amount);
-                                img.setImageBitmap(mergedImg);
-
-                                if(amount == 0)
-                                {
-                                    interrupt();
-                                }
-                            }
-                        });
-
-                    }catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        };
-
-        thread.start();
-    }
-
-    public Bitmap overlayBitmapToCenter(Bitmap bitmap1, Bitmap overlayBitmap, int alpha ) {
-
-        Paint paint = new Paint();
-        paint.setAlpha(alpha);
-        Bitmap bmOverlay = Bitmap.createBitmap(this.img.getWidth(), this.img.getWidth(), bitmap1.getConfig());
-        Canvas canvas = new Canvas(bmOverlay);
-        canvas.drawBitmap(bitmap1, null, new Rect(0,0,this.img.getWidth(),this.img.getHeight()), null);
-        canvas.drawBitmap(overlayBitmap, null, new Rect(0,0,bitmap1.getWidth(),bitmap1.getHeight()), paint);
-        return bmOverlay;
-
-    }
-
 }
