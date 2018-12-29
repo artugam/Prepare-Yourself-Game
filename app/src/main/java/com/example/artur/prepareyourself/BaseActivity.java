@@ -9,12 +9,12 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Music.pause();
+        Music.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Music.start();
+        Music.pause();
     }
 }

@@ -1,8 +1,6 @@
 package com.example.artur.prepareyourself;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,14 +10,9 @@ import com.example.artur.prepareyourself.System.Music;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static MediaPlayer sing;
-
-    public static Activity fa;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fa = this;
 
         setContentView(R.layout.activity_main);
 
@@ -41,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     {
         Music.createMusic(getApplicationContext(), R.raw.song);
         Music.start();
-
     }
 
     @Override

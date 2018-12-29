@@ -119,6 +119,15 @@ public class Arena extends BaseActivity {
     {
         int selectedActionPos = actionsSelect.getSelectedItemPosition();
         SkillBase currentSkill = player.getSkills().get(selectedActionPos);
+
+        if(currentSkill.getEnergy() > player.getEnergy())
+        {
+            Toast.makeText(getApplicationContext(),
+                    "Not enough EP to use this skill",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         currentSkill.action(getApplicationContext());
 
         Toast.makeText(getApplicationContext(),
@@ -182,6 +191,12 @@ public class Arena extends BaseActivity {
             enemy.setEnergy(enemy.getEnergy() - randomSkill.getEnergy());
 
             setStats();
+
+            if(!player.isAlive())
+            {
+                return;
+            }
+
             enemyHandler.postDelayed(this, 2000);
         }
     };
@@ -273,6 +288,7 @@ public class Arena extends BaseActivity {
                 this.goWinnerActivity();
                 return;
             }
+
             this.goProfile();
             return;
         }
