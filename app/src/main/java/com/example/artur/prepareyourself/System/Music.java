@@ -20,11 +20,18 @@ public class Music {
 
     public static void start()
     {
-        player.start();
+        if(!player.isPlaying())
+        {
+            player.start();
+        }
+
     }
 
     public static void pause()
     {
-        player.pause();
+        if(player.isPlaying())
+        {
+            player.pause();
+        }
     }
 }

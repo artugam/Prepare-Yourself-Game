@@ -6,6 +6,14 @@ import com.example.artur.prepareyourself.System.Music;
 
 public class BaseActivity extends AppCompatActivity {
 
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Music.start();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
