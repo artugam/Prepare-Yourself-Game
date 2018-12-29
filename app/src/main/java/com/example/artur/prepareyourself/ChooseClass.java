@@ -2,27 +2,25 @@ package com.example.artur.prepareyourself;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.artur.prepareyourself.Helpers.Toast;
 import com.example.artur.prepareyourself.Helpers.Validators.Base;
 import com.example.artur.prepareyourself.Persons.PersonBase;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Archer;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Warrior;
 import com.example.artur.prepareyourself.Persons.PlayerClasses.Wizard;
 
-public class ChooseClass extends AppCompatActivity {
+public class ChooseClass extends BaseActivity {
 
     private Spinner playerSelect;
 
     private PersonBase player;
-    protected MediaPlayer sing;
 
     private String playerName;
 
@@ -31,7 +29,7 @@ public class ChooseClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_class);
 
-        setMusic();
+
         addOnSpinnerSelectListener();
 
         final Button selectPlayer = findViewById(R.id.submitPlayerSelectButton);
@@ -40,7 +38,7 @@ public class ChooseClass extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!validateInputs())
+            if(!validateInputs())
                 {
                     return;
                 }
@@ -50,25 +48,14 @@ public class ChooseClass extends AppCompatActivity {
                 PersonBase player = getPlayerClass(playerClass);
 
                 changer.putExtra("player", player);
+                changer.putExtra("level", 1);
                 startActivity(changer);
+
+                finish();
             }
         });
 
 
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        sing.pause();
-    }
-
-    void setMusic()
-    {
-        sing = MediaPlayer.create(getApplicationContext(), R.raw.song);
-        sing.start();
     }
 
     private boolean validateInputs()
@@ -78,6 +65,7 @@ public class ChooseClass extends AppCompatActivity {
 
         if(Base.isEmptyString(playerName))
         {
+            Toast.showMessage(getApplicationContext(), "Please provide your name");
             return false;
         }
 

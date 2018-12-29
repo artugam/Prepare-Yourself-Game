@@ -2,7 +2,7 @@ package com.example.artur.prepareyourself;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import com.example.artur.prepareyourself.Persons.PersonBase;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends BaseActivity {
 
-    public static PersonBase player;
+    protected PersonBase player;
+    protected int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,9 @@ public class Profile extends AppCompatActivity {
         Intent intent = getIntent();
 
         player = (PersonBase) intent.getSerializableExtra("player");
+        level = (int) intent.getSerializableExtra("level");
+
+        Log.d("level", level + "");
 
         this.setDetails();
 
@@ -33,7 +37,10 @@ public class Profile extends AppCompatActivity {
                 Intent changer = new Intent(getApplicationContext(), Arena.class);
 
                 changer.putExtra("player", player);
+                changer.putExtra("level", level);
+
                 startActivity(changer);
+                finish();
             }
         });
 
@@ -49,6 +56,9 @@ public class Profile extends AppCompatActivity {
         TextView welcomeText = findViewById(R.id.profileWelcomeTextView);
         welcomeText.setText(welcomeText.getText() + " " + player.getImie());
 
+        TextView profileLevel = findViewById(R.id.profileNextLevelTextView);
+        profileLevel.setText(profileLevel.getText() + " " + this.level);
+
         getWindow().setBackgroundDrawable(player.getThemeImage(getResources()));
         return this;
     }
@@ -61,6 +71,7 @@ public class Profile extends AppCompatActivity {
         playerHp.setProgress(player.getHp());
         playerHpView.setText(player.getHp() + "");
 
+        player.setEnergy(player.getENERGY_RECOVER());
         ProgressBar playerEp = findViewById(R.id.profileEpButton);
         TextView playerEpView = findViewById(R.id.profileEpTextView);
         playerEp.setMax(player.getMaxEnergy());

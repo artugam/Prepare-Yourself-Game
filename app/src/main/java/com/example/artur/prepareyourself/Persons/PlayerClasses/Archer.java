@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 
 import com.example.artur.prepareyourself.Persons.PersonBase;
 import com.example.artur.prepareyourself.R;
+import com.example.artur.prepareyourself.Skills.Spells.ArrowSpray;
 import com.example.artur.prepareyourself.Skills.Weapons.Bow;
 
 
@@ -30,6 +31,7 @@ public class Archer extends PersonBase {
     public void assignSkills()
     {
         this.addSkill(new Bow(3, 2));
+        this.addSkill(new ArrowSpray(13, 3));
     }
 
     public Drawable getThemeImage(Resources resources)

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 
 import com.example.artur.prepareyourself.Persons.PersonBase;
 import com.example.artur.prepareyourself.R;
+import com.example.artur.prepareyourself.Skills.Spells.JumpAttack;
 import com.example.artur.prepareyourself.Skills.Weapons.OneHandSword;
 
 
@@ -30,11 +31,12 @@ public class Warrior extends PersonBase {
     public void assignSkills()
     {
         this.addSkill(new OneHandSword(2, 2));
+        this.addSkill(new JumpAttack(15, 3));
     }
 
     public Drawable getThemeImage(Resources resources)
     {
-        Drawable drawable = resources.getDrawable( R.drawable.warrior_v1, null);
+        Drawable drawable = resources.getDrawable( R.drawable.warrior, null);
         return drawable;
     }
 

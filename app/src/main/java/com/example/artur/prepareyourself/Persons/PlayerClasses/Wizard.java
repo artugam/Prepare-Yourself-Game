@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import com.example.artur.prepareyourself.Persons.PersonBase;
 import com.example.artur.prepareyourself.R;
 import com.example.artur.prepareyourself.Skills.Spells.FireBall;
+import com.example.artur.prepareyourself.Skills.Spells.Freeze;
 
 
 public class Wizard extends PersonBase {
@@ -29,6 +30,7 @@ public class Wizard extends PersonBase {
     public void assignSkills()
     {
         this.addSkill(new FireBall(2, 2));
+        this.addSkill(new Freeze(37, 3));
     }
 
     public Drawable getThemeImage(Resources resources)

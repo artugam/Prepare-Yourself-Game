@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#0c6a5d</color>
     <color name="colorAccent">#d81b60</color>
     <color name="colorGrayWithOpacity">#909a9aa0</color>
+    <color name="colorWinnerMessage">#ade6a62b</color>
+    <color name="colorGameOverMessage">#adc41b15</color>
 
 </resources>
